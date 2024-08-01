@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        // Error occurred
+        perror("fork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Child process
+        printf("Child process PID: %d\t", getpid());
+        printf("Parent process PID: %d\n", getppid());
+        sleep(10);
+        printf("child after becoming orphan, PID=%d\tParent PID=%d",getpid(),getppid());
+    } else {
+        // Parent process
+        printf("Parent process PID: %d\t", getpid());
+        printf("Child process PID: %d\n",pid);
+        exit(0);
+    }
+
+    return 0;
+}
