@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#define buffer_size 100
+
+int main() {
+    int f1,f2,n;
+    
+    char buffer[buffer_size];
+    
+    // Open the input file for reading
+    f1 = open("input.txt", O_RDONLY);
+    f2 = open("output.txt", O_WRONLY | O_CREAT);
+    printf("File descriptor for input file is %d\n", f1);
+    printf("File descriptor for output file is %d\n", f2);
+
+    if (f1 == -1 || f2 == -1) {
+        printf("Failed to open input file\n");
+        exit(1);
+    }
+    
+    // Read from input file and write to output file
+    printf("Copying content from input file to output file...\n");
+    n = read(f1, buffer, buffer_size);
+    write(f2, buffer, n);
+   
+
+    printf("File copy successful.\n");
+
+    // Close files
+    close(f1);
+    close(f2);
+
+    return 0;
+}

@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<sys/wait.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+int main(){
+	int n;
+	printf("Enter the number of child processes you want to create: ");
+	scanf("%d",&n);
+	for(int i=0;i<n;i++){
+		if(fork()==0){
+			printf("[child]pid: %d",getpid());
+			printf("parents PID: %d\n",getppid());
+			exit(0);
+		}
+	}
+	for(int i=0;i<n;i++){
+		wait(NULL);
+	}
+}

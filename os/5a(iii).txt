@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<sys/wait.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+int main(){
+		pid_t pid = fork();
+		if(pid<0){		
+			printf("Error\n");
+			exit(0);
+		}
+		else if(pid==0){
+			printf("child's PID: %d\t",getpid());
+			printf("parents PID: %d\n",getppid());
+			execlp("/bin/ls","ls",NULL);
+		}else{
+			printf("parent's PID: %d\t",getpid());
+			printf("child's PID: %d\n",pid);
+			wait(NULL);
+		}
+	
+	return 0;
+}
