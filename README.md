@@ -2,6 +2,9 @@
 
 ## Simulations
 
+### 1 & 2
+- shell scripts
+
 ### 3 
 - **a, b, c, d, e** -> simulations
 
