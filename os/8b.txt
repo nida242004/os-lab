@@ -1,0 +1,76 @@
+#include<stdio.h>
+typedef struct node{
+	int processid;
+	int arrival;
+	int burst; 
+	int completion; 
+	int turnaround;
+	int waiting; 
+	int response;
+}process;
+
+void fcfs(process processes[], int n){
+	int elapsed = 0;
+	float avgwaiting = 0;
+	float avgturnaround = 0;
+	float avgresponse = 0;
+	int totalwaiting = 0;
+	int totalturnaround = 0;
+	int totalresponse = 0;
+	printf("gant chart\n");
+	for(int i=0; i<n; i++){
+		if(processes[i].arrival > elapsed)
+			elapsed = processes[i].arrival;
+		int temp = elapsed;
+		processes[i].response = elapsed - processes[i].arrival;
+		elapsed += processes[i].burst;
+		processes[i].completion = elapsed;
+		processes[i].turnaround = processes[i].completion - processes[i].arrival;
+		processes[i].waiting = processes[i].turnaround - processes[i].burst;
+		printf("%d\tP%d\t%d\n", temp, processes[i].processid, elapsed);	
+	}
+	printf("\n");
+	printf("Observation Table\nPID\tAT\tBT\tCT\tTT\tWT\tRT\n");
+	for(int i=0; i<n; i++){
+		printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\n",processes[i].processid, processes[i].arrival,
+		 	processes[i].burst, processes[i].completion, processes[i].turnaround,
+		 	processes[i].waiting, processes[i].response);
+		totalturnaround += processes[i].turnaround;
+		totalwaiting += processes[i].waiting;
+		totalresponse += processes[i].response;	
+	}
+	avgturnaround = (float)totalturnaround/n;
+	avgwaiting = (float)totalwaiting/n;
+	avgresponse = (float)totalresponse/n;
+	printf("\nAverage waiting time : %.2lf\n",avgwaiting);
+	printf("\nAverage turnaround time : %.2lf\n",avgturnaround);
+	printf("\nAverage response time : %.2lf\n",avgresponse);			
+}
+
+int main(){
+	int n;
+	printf("enter the number of processses:");
+	scanf("%d",&n);
+	process processes[n];
+	for(int i=0; i<n; i++){
+		printf("process %d\n", i+1);
+		printf("enter arrival time: ");
+		scanf("%d",&(processes[i].arrival));
+		printf("enter burst time: ");
+		scanf("%d",&processes[i].burst);
+		processes[i].processid = i+1;
+		printf("\n");
+	}
+	for(int i=0; i<n; i++){
+		for(int j=0; j<n-1-i; j++){
+			if(processes[j].arrival > processes[j+1].arrival){
+				process temp = processes[j];
+				processes[j] = processes[j+1];
+				processes[j+1] = temp;
+			}
+		}
+	}
+	fcfs(processes,n);
+	return 0;
+}
+

@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/types.h>
+#include<sys/shm.h>
+#include<sys/ipc.h>
+#include<sys/stat.h>
+#include<sys/mman.h>
+
+int main(){
+	void *psm;
+	char buf[10];
+	int shmid;
+	shmid=shmget((key_t)1122,1024,0666);
+	printf("key/ID/fd of the shared memory:%d\n",shmid);	
+	psm=shmat(shmid,NULL,0666);	
+	printf("shared memory for consumer is attached at:%p\n",psm);
+	printf("data read from shared memory: %s",(char *)psm);	
+	shmctl(shmid,IPC_RMID,NULL);
+	return 0;
+}
