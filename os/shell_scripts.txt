@@ -1,0 +1,203 @@
+SHELL SCRIPTS
+
+1.CONCATENATION OF 2 STRINGS
+
+echo "Enter first string"
+read s1
+echo "Enter second string"
+read s2
+s3=$s1$s2
+echo "concatenated string is $s3"
+
+
+2. COMPARISON OF 2 STRINGS
+
+
+#!/bin/bash
+echo "Enter the strings"
+read s1 s2
+if [ $s1 = $s2 ]
+then 
+	echo "$s1 and $s2 are equal"
+elif [ $s1 \> $s2 ]
+then 
+	echo "$s1 greater than $s2"
+else
+	echo "$s2 greater than $s1"
+fi
+fi			
+
+
+3. MAXIMUM OF 3 NOS.
+
+echo "Enter 3 numbers : "
+echo
+read a b c
+l=$a
+if [ $b \> $l ] 
+then 
+	l=$b
+fi
+if [ $c \> $l ]
+then
+	l=$c
+fi
+echo "largest of $a $b $c is $l" 
+
+
+4.FIBONACCI SERIES
+
+n1=0
+n2=1
+echo "enter the number of fibonacci numbers u want to find"
+read n
+echo "the first $n fibonacci nos are :"
+echo
+echo $n1
+echo $n2
+for((i=2 ; i<$n ; i++ ))
+do
+	n3=$((n1+n2))
+	echo $n3
+	n1=$n2
+	n2=$n3
+done
+
+
+
+5. ARITHEMETIC OPERATION
+
+
+echo "Enter the first number"
+read n1
+echo "Enter the second number"
+read n2
+for(( ; ; ))
+do
+	echo "Menu"
+	echo "1. Add"
+	echo "2. Sub"
+	echo "3. Mul"
+	echo "4. Div"
+	echo "5. Mod"
+	echo "6. end"
+	echo "Enter choice : "
+	read ch
+	case $ch in
+	1) echo "Addition is : $((n1+n2))";;
+	2) echo "Subtraction is : $((n1-n2))";;
+	3) echo "Multiplication is : $((n1*n2))";;
+	4) echo "Division is : $((n1/n2))";;
+	5) echo "Modulus is : $((n1%n2))";;
+	6) break
+	esac
+done
+
+
+
+6.PALINDROME
+
+
+echo "enter n"
+read n
+temp=$n
+rev=0
+while (( $temp>0 ))
+do
+	r=$((temp%10))
+	rev=$((rev*10+r))
+	temp=$((temp/10))
+done
+if [ $rev = $n ]
+then 
+	echo "palindrome"
+else
+	echo "not"
+fi
+
+
+7.LARGEST NO IN AN ARRAY
+
+echo "Enter the no. of elements: "
+read n
+echo "Enter the numbers: "
+for(( i=0;i<n;i++ ))
+do
+	read num
+	array[i]=$num
+done
+largest=${array[0]}
+for(( i=1;i<n;i++ ))
+do
+	if [ ${array[i]} \> $largest ]
+	then
+		largest=${array[i]}
+	fi
+done
+echo "the largest number is: $largest"
+
+
+
+
+8. PRIME NUMBERS
+
+
+echo "enter the limit"
+read l
+echo "prime numbers up to $l are: "
+for(( num=2;num<=l;num++ ))
+do
+	is_prime=1
+	for(( i=2;i*i<=num;i++ )) 
+	do
+		if [ $(( num%i )) -eq 0 ]
+		then
+			is_prime=0
+			break
+		fi
+	done
+	if [ $is_prime -eq 1 ];then
+		echo $num
+	fi
+done
+
+
+
+
+9. READ 2 MATRICES AND FIND THEIERR SUM
+
+
+echo "enter the numver of rows and columns: "
+read row col
+echo "enter the elements of first matrix"
+for(( i=0;i<row;i++ ))
+do
+	for(( j=0;j<col;j++ ))
+	do
+		read mat1[$i$j]
+	done
+done
+echo "enter the elements of second matrix"
+for(( i=0;i<row;i++ ))
+do
+	for(( j=0;j<col;j++ ))
+	do
+		read mat2[$i$j]
+	done
+done
+for(( i=0;i<row;i++ ))
+do
+	for(( j=0;j<col;j++ ))
+	do
+		sum[$i$j]=$((mat1[$i$j]+mat2[$i$j]))
+	done
+done
+echo "Sum of matrixes is :"
+for(( i=0;i<row;i++ ))
+do
+	for(( j=0;j<col;j++ ))
+	do
+		echo -n "{$sum[$i$j]}"
+	done
+	echo " "
+done
