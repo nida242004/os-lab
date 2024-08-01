@@ -24,13 +24,15 @@
 
 ### 8 
 - **a** -> 2 threads to compute sum and product
-- **b** -> FCFS
+- **b** -> FCFS 
 
 ### 9 
-- **a** -> SJF
+- **a** -> SJF non pre 
+- **b** -> SJF preemptive 
 
 ### 10 
-- **a** -> priority
+- **a** -> priority non preemptive 
+- **b** -> priority preemptive 
 
 ### 11 
 - **a** -> round robin
